@@ -1,0 +1,9 @@
+setloc.py
+
+venv/ 
+
+pycache/
+
+.vscode
+.idea
+.db
