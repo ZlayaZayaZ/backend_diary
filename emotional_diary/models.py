@@ -1,4 +1,57 @@
 from django.db import models
-
+from django.forms import ImageField
 # Create your models here.
+
+
+class Situation(models.Model):
+    rating_of_the_situation = models.IntegerField(verbose_name='Оценка ситуации') 
+    #сделать это поле как выбор из 10 целочисленных вариантов? Не изменяемым в последствии? убрать это поле вовсе?
+
+    description = models.CharField(max_length=300, verbose_name='Описание ситуации')
+    conclusions = models.CharField(max_length=300, verbose_name='Выводы')
+    body_reaction = models.CharField(max_length=300, verbose_name='Реакция тела')
+    img = models.ImageField(blank=True, verbose_name='изображение, отражающее чувства')
+    created_at = models.DateField(auto_now=False, auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Emotion(models.Model):
+    EMOTIONS = (
+        (None, 'выберите эмоцию'),
+        ('fear', 'страх'),
+        ('apathy', 'апатия'),
+        ('pain', 'боль'),
+        ('negation', 'отрицание'),
+        ('anger', 'гнев'),
+        ('disappointment', 'разочарование'),
+        ('sadness', 'печаль'),
+        ('admiration', 'восхищение'),
+        ('joy', 'радость'),
+        ('happiness', 'счастье'),
+        ('excitation', 'возбуждение'),
+        ('appetence', 'влечение'),
+        ('indifference', 'безразличие'),
+        ('passion', 'страсть'),
+    )
+
+    id_situation = models.ForeignKey(Situation, on_delete=models.CASCADE, related_name='measurements')
+    emotion = models.CharField(max_length=16, choices=EMOTIONS)
+
+    class Meta:
+
+        unique_together = ('id_situation', 'emotion')
+        
+        # constraints = (
+        #     models.UniqueConstraint(
+        #         fields=('id_situation', 'emotion'),
+        #         name='unique_emotion'
+        #     ),
+        # )
+
+
+    def __str__(self):
+        return f'{self.id_sensor} - {self.created_at}'
+
 
