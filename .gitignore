@@ -2,7 +2,7 @@ setloc.py
 
 venv/ 
 
-pycache/
+__pycache__/
 
 .vscode
 .idea
