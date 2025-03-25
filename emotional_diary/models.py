@@ -13,9 +13,6 @@ class Situation(models.Model):
     img = models.ImageField(blank=True, verbose_name='изображение, отражающее чувства')
     created_at = models.DateField(auto_now=False, auto_now_add=True)
 
-    def __str__(self):
-        return self.name
-
 
 class Emotion(models.Model):
     EMOTIONS = (
@@ -36,22 +33,14 @@ class Emotion(models.Model):
         ('passion', 'страсть'),
     )
 
-    id_situation = models.ForeignKey(Situation, on_delete=models.CASCADE, related_name='measurements')
+    situations = models.ManyToManyField(Situation, through='Connection', through_fields=('id_emotion', 'id_situation'), related_name='emotions')
     emotion = models.CharField(max_length=16, choices=EMOTIONS)
 
-    class Meta:
-
-        unique_together = ('id_situation', 'emotion')
-        
-        # constraints = (
-        #     models.UniqueConstraint(
-        #         fields=('id_situation', 'emotion'),
-        #         name='unique_emotion'
-        #     ),
-        # )
-
-
+    
     def __str__(self):
-        return f'{self.id_sensor} - {self.created_at}'
+        return self.emotion
 
 
+class Connection(models.Model):
+    id_situation = models.ForeignKey(Situation, on_delete=models.CASCADE)
+    id_emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)

@@ -14,7 +14,7 @@ python -m venv venv
 Активировать:
 
 ```bash
-\venv\Script\activate
+venv\Scripts\activate
 ```
 
 #### Установить зависимости:

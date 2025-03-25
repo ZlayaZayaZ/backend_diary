@@ -1,3 +1,8 @@
 django
 djangorestframework
 psycopg2-binary
+pillow
+asgiref
+sqlparse
+typing_extensions
+tzdata

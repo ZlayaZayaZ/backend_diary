@@ -15,3 +15,10 @@ class Habit(models.Model):
 
     title = models.CharField(max_length=300, verbose_name='Название')
     target = models.CharField(max_length=16, choices=TARGET)
+    date = models.DateField(auto_now=False, auto_now_add=True)
+
+
+class Incident(models.Model):
+    
+    id_habit = models.ForeignKey(Habit, on_delete=models.CASCADE, related_name='incidents')
+    date = models.DateField(auto_now=False, auto_now_add=True)
