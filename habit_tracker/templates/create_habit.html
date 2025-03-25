@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Создание новой привычки:</title>
+    </head> 
+    <body>
+        <div>
+            <a href="{% url 'index' %}">Главная</a>
+            {% for habit in habits %}
+            <a href="{% url 'habit' habit.pk %}">{{habit.title}}</a>
+            {% endfor %}
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Добавить">
+        </form>
+    </body>
+</html>

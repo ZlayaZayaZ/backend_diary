@@ -11,7 +11,14 @@ class Situation(models.Model):
     conclusions = models.CharField(max_length=300, verbose_name='Выводы')
     body_reaction = models.CharField(max_length=300, verbose_name='Реакция тела')
     img = models.ImageField(blank=True, verbose_name='изображение, отражающее чувства')
-    created_at = models.DateField(auto_now=False, auto_now_add=True)
+    created_at = models.DateField(auto_now=False, auto_now_add=True, verbose_name = 'дата ситуации')
+
+    def __str__(self):
+        return self.description
+
+    class Meta:
+        verbose_name_plural = 'ситуации'
+        verbose_name = 'ситуация'
 
 
 class Emotion(models.Model):
@@ -33,14 +40,22 @@ class Emotion(models.Model):
         ('passion', 'страсть'),
     )
 
-    situations = models.ManyToManyField(Situation, through='Connection', through_fields=('id_emotion', 'id_situation'), related_name='emotions')
-    emotion = models.CharField(max_length=16, choices=EMOTIONS)
+    situations = models.ManyToManyField(Situation, through='Connection', through_fields=('id_emotion', 'id_situation'), related_name='emotions', verbose_name = 'список ситуаций')
+    emotion = models.CharField(max_length=16, choices=EMOTIONS, verbose_name = 'эмоция')
 
     
     def __str__(self):
         return self.emotion
+    
+    class Meta:
+        verbose_name_plural = 'эмоции'
+        verbose_name = 'эмоция'
 
 
 class Connection(models.Model):
-    id_situation = models.ForeignKey(Situation, on_delete=models.CASCADE)
-    id_emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
+    id_situation = models.ForeignKey(Situation, on_delete=models.CASCADE, verbose_name = 'id ситуации')
+    id_emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE, verbose_name = 'id эмоции')
+
+    class Meta:
+        verbose_name_plural = 'связи эмоций и ситуаций'
+        verbose_name = 'связь эмоции и ситуации'
