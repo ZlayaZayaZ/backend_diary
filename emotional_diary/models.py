@@ -59,3 +59,7 @@ class Connection(models.Model):
     class Meta:
         verbose_name_plural = 'связи эмоций и ситуаций'
         verbose_name = 'связь эмоции и ситуации'
+        constraints = (
+            models.UniqueConstraint(fields=('id_situation', 'id_emotion'),
+                                    name = 'emotion_situation_constraint'),
+        )

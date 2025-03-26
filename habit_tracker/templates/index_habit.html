@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Трекер привычек</title>
-    </head> 
-    <body>
-        <h1>Список:</h1>
-        <div>
-            {% for habit in habits %}
-            <a href="{% url 'habit' habit.pk %}">{{habit.title}}</a>
-            {% endfor %}
-        </div>
-        <a href="{% url 'add' %}">Добавить</a>
-    </body>
-</html>
+{% extends "basic.html" %}
+
+{% block content %}
+{% for habit in habits %}
+<a href="{% url 'habit' habit.pk %}">{{habit.title}}</a>
+{% endfor %}
+{% endblock %}

@@ -22,7 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+0evrza4rm-6-+j!85@mrc)otzrhen5^79p#wlir*d5u6v081f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,8 +41,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    'emotional_diary',
-    'habit_tracker',
+    'emotional_diary.apps.EmotionalDiaryConfig',
+    'habit_tracker.apps.HabitTrackerConfig',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +105,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+SHORT_DATE_FORMAT = 'j.m.Y'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

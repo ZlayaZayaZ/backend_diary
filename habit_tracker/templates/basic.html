@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Главная{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    </head> 
+    <body>
+        <header>
+            <h1>Список привычек:</h1>
+        </header>
+        <nav>
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'add' %}">Добавить привычку</a>
+            {% for habit in habits %}
+            <a href="{% url 'habit' habit.pk %}">{{habit.title}}</a>
+            {% endfor %}
+        </nav>
+        <section>
+        {% block content %}
+        {% endblock %}
+        </section>
+    </body>
+</html>

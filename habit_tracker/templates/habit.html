@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{{current_habit.title}}</title>
-    </head> 
-    <body>
-        <h1>Список событий:</h1>
-        <div>
-            {% for habit in habits %}
-            <a href="{% url 'habit' habit.pk %}">{{habit.title}}</a>
-            {% endfor %}
-        </div>
-        {% for incident in habit_incidents %}
-        <div>
-            <h2>{{incident.date|date:"d.m.Y"}}</h2>
-        </div>
-        {% endfor %}
-        <a href="{% url 'index' %}">Главная</a>
-    </body>
-</html>
+{% extends "basic.html" %}
+
+{% block title %}{{current_habit.title}}{% endblock %}
+{% block content %}
+<h2>{{current_habit.title}}</h2>
+{% for incident in habit_incidents %}
+<div>
+    <h3>{{incident.date|date:"d.m.Y"}}</h3>
+</div>
+{% endfor %}
+{% endblock %}
